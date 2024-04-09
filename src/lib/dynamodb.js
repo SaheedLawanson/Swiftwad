@@ -1,0 +1,1 @@
+import { docClient } from '#lib/aws';
