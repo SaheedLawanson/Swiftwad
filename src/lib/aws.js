@@ -19,12 +19,12 @@ import {
 const AWS_CONFIG = { region: "us-east-2" };
 
 // Create the DynamoDB DocumentClient service object
-const docClient = DynamoDBDocument.from(new DynamoDB(AWS_CONFIG), {
+export const docClient = DynamoDBDocument.from(new DynamoDB(AWS_CONFIG), {
   marshallOptions: { removeUndefinedValues: true },
 });
 
 const cognitoClient = new CognitoIdentityProviderClient(AWS_CONFIG);
-const cognito = {
+export const cognito = {
   adminGetUser: async (params) => {
     return await cognitoClient.send(new AdminGetUserCommand(params));
   },
@@ -52,9 +52,4 @@ const cognito = {
   confirmSignUp: async (params) => {
     return await cognitoClient.send(new ConfirmSignUpCommand(params));
   },
-};
-
-export default {
-  docClient,
-  cognito,
 };

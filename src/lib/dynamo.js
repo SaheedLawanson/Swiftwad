@@ -1,6 +1,6 @@
 import { docClient } from '#lib/aws';
 
-const generateKeyExpression = (key, keyName, subkey, subkeyName) => {
+export const generateKeyExpression = (key, keyName, subkey, subkeyName) => {
   const params = {};
 
   if (key) {
@@ -17,7 +17,7 @@ const generateKeyExpression = (key, keyName, subkey, subkeyName) => {
   return params;
 };
 
-const generateFilterExpressions = (
+export const generateFilterExpressions = (
   filter,
   { ExpressionAttributeNames, ExpressionAttributeValues, FilterExpression }
 ) => {
@@ -41,7 +41,7 @@ const generateFilterExpressions = (
   return params;
 };
 
-const generateUpdateExpression = function ({ params }) {
+export const generateUpdateExpression = function ({ params }) {
   return {
     UpdateExpression: `set ${Object.keys(params)
       .map((k) => `#${k} = :${k}`)
@@ -57,7 +57,7 @@ const generateUpdateExpression = function ({ params }) {
   };
 };
 
-const generateBatchFromParams = async (params, type) => {
+export const generateBatchFromParams = async (params, type) => {
   switch (type.toLowerCase()) {
     case "put":
       type = "PutRequest";
@@ -72,12 +72,12 @@ const generateBatchFromParams = async (params, type) => {
   batchParams;
 };
 
-const queryFromDb = async (params) => {
+export const queryFromDb = async (params) => {
   const fn = params.KeyConditionExpression ? "query" : "scan";
   return await docClient[fn](params);
 };
 
-const getAllFromDb = async (params, result) => {
+export const getAllFromDb = async (params, result) => {
   result = result || {};
   const newResult = await queryFromDb(params);
   result = {
@@ -93,27 +93,14 @@ const getAllFromDb = async (params, result) => {
   }
 }
 
-const putToDb = async (params) => {
+export const putToDb = async (params) => {
   return await docClient.put(params);
 }
 
-const updateDb = async (params) => {
+export const updateDb = async (params) => {
   return await docClient.update(params);
 }
 
-const deleteFromDb = async (params) => {
+export const deleteFromDb = async (params) => {
   return await docClient.delete(params);
 }
-
-
-export default {
-  generateKeyExpression,
-  generateFilterExpressions,
-  generateUpdateExpression,
-  generateBatchFromParams,
-  queryFromDb,
-  getAllFromDb,
-  putToDb,
-  updateDb,
-  deleteFromDb,
-};

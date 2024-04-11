@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+        "#root/*": ["./*"],
+        "#lib/*": ["./src/lib/*"],
+        "#actions/*": ["./actions/*"],
+        "#functions/*": ["./src/functions/*"],
+      }
+    },
+    "exclude": ["node_modules"]
+  }

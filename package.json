@@ -4,13 +4,15 @@
   "description": "![Auto Assign](https://github.com/SwiftWad/demo-repository/actions/workflows/auto-assign.yml/badge.svg)",
   "main": "index.js",
   "imports": {
-    "#lib/*": "./src/lib/*.js",
-    "#functions/*": "./src/functions/*.js",
-    "#actions/*": "./src/actions/*.js"
+    "#lib/*": ["./src/lib/*.js"],
+    "#functions/*": ["./src/functions/*.js"],
+    "#actions/*": ["./src/actions/*.js"],
+    "#root/*": ["./*.js"]
   },
   "directories": {
     "lib": "lib"
   },
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,7 +29,9 @@
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.549.0",
     "@aws-sdk/client-dynamodb": "^3.549.0",
-    "@aws-sdk/lib-dynamodb": "^3.549.0"
+    "@aws-sdk/lib-dynamodb": "^3.549.0",
+    "aws-cdk-lib": "2.136.0",
+    "constructs": "^10.0.0"
   },
   "devDependencies": {
     "aws-cdk": "^2.136.0"
