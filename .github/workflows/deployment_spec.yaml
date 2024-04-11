@@ -11,8 +11,7 @@ jobs:
     steps:
         -   name: Run Checks
             run: |
-                echo "KEY ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
-                echo "SECRET KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+                echo "SECRETS ID: ${{ secrets }}"
 
         -   name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v2
