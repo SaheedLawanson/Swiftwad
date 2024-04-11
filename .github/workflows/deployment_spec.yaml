@@ -14,7 +14,7 @@ jobs:
 
         -   name: Run Checks
             run: |
-                echo "SECRETS ID: ${{ secrets }}"
+                echo "Number of Secrets: toJson(${{ secrets }}) | length"
 
         -   name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v2
