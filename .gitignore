@@ -10,6 +10,12 @@ lerna-debug.log*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+.vscode
+
 # Runtime data
 pids
 *.pid
@@ -22,6 +28,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
+*.env.json
 
 # nyc test coverage
 .nyc_output
