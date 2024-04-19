@@ -11,6 +11,7 @@ export const signUp = async (event) => {
       phone_number,
       full_name,
       country,
+      test,
     } = eventBody;
 
     const email = userEmail.toLowerCase();
