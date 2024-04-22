@@ -1,0 +1,43 @@
+name: Deploy SwiftwadBackendStack
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy_lambda_stack:
+    runs-on: ubuntu-latest
+    steps:
+        -   name: Checkout this repo  
+            uses: actions/checkout@v3
+
+        -   name: Setup ENV
+            run: |
+                echo "AWS_REGION=eu-west-2" >> $GITHUB_ENV
+                echo "AWS_ACCOUNT_ID=905418331655" >> $GITHUB_ENV
+
+        -   name: Configure AWS credentials
+            uses: aws-actions/configure-aws-credentials@v2
+            with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: ${{ env.AWS_REGION }}
+
+        -   name: Install Dependencies
+            run: |
+                cd src
+                mkdir nodejs && cp package.json nodejs/
+                cd nodejs && npm install
+
+        -   name: Bootstrap AWS CDK
+            run: |
+                npm install
+                npx cdk bootstrap aws://${{ env.AWS_ACCOUNT_ID }}/${{ env.AWS_REGION}}
+
+        -   name: Deploy SwiftwadBackendStack (via CDK)
+            uses: youyo/aws-cdk-github-actions@v2
+            with:
+                cdk_subcommand: 'deploy'
+                cdk_args: '--require-approval never'
+                actions_comment: false

@@ -1,0 +1,56 @@
+{
+  "name": "swiftwad-backend",
+  "version": "0.1.0",
+  "description": "![Auto Assign](https://github.com/SwiftWad/demo-repository/actions/workflows/auto-assign.yml/badge.svg)",
+  "main": "index.js",
+  "imports": {
+    "#lib/*": [
+      "./src/lib/*.js",
+      "./lib/*.js"
+    ],
+    "#functions/*": [
+      "./src/functions/*.js",
+      "./functions/*.js"
+    ],
+    "#actions/*": [
+      "./src/actions/*.js",
+      "./actions/*.js"
+    ],
+    "#config/*": [
+      "./src/config/*.js",
+      "./config/*.js"
+    ],
+    "#root/*": [
+      "./*.js"
+    ]
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swiftwad/backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swiftwad/backend/issues"
+  },
+  "homepage": "https://github.com/swiftwad/backend#readme",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.549.0",
+    "@aws-sdk/client-dynamodb": "^3.549.0",
+    "@aws-sdk/client-ssm": "^3.554.0",
+    "@aws-sdk/lib-dynamodb": "^3.549.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.136.0",
+    "aws-cdk-lib": "2.136.0",
+    "constructs": "^10.0.0"
+  }
+}
