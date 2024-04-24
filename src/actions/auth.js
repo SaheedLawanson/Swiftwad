@@ -187,7 +187,6 @@ export const changePassword = async (event) => {
 
 
 export const resetPassword = async (event) => {
-  console.log("EVENT:", event)
   const eventBody = JSON.parse(event.body);
 
   try {
