@@ -1,4 +1,4 @@
-name: Deploy SwiftwadBackendStack
+name: Deploy SwiftwadBackendStack For Development
 
 on:
     push:
