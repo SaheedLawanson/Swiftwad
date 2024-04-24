@@ -27,7 +27,7 @@ jobs:
                 else
                     env="dev"
                 fi
-                echo "EXEC_ENV=env" >> $GITHUB_ENV
+                echo "EXEC_ENV=$env" >> $GITHUB_ENV
 
         -   name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v2
