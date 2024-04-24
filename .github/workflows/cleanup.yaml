@@ -43,6 +43,6 @@ jobs:
             uses: youyo/aws-cdk-github-actions@v2
             with:
                 cdk_subcommand: 'destroy'
-                cdk_stack: 'SwiftwadBackendStack-${{ github.head_ref }}'
+                cdk_stack: 'SwiftwadBackendStack-${{ env.BRANCH_NAME }}'
                 cdk_args: '--require-approval never'
                 actions_comment: false
