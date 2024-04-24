@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import * as authActions from "#actions/auth";
-import { syncParameters } from "#config/env_config"
+import { syncParameters } from "#config/env_config";
 
 await syncParameters()
 
