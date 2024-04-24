@@ -16,6 +16,14 @@ jobs:
             run: |
                 echo "AWS_REGION=eu-west-2" >> $GITHUB_ENV
                 echo "AWS_ACCOUNT_ID=905418331655" >> $GITHUB_ENV
+                echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
+                
+                if [[ "${{ github.ref_name }}" == "main" ]]; then
+                    env="prod"
+                else
+                    env="dev"
+                fi
+                echo "EXEC_ENV=env" >> $GITHUB_ENV
 
         -   name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v2

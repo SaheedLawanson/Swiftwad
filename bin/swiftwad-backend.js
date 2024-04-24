@@ -2,9 +2,10 @@
 
 import cdk from 'aws-cdk-lib';
 import { SwiftwadBackendStack } from '#root/lib/swiftwad-backend-stack';
+import { EXEC_ENV } from '#root/lib/config';
 
 const app = new cdk.App();
-new SwiftwadBackendStack(app, 'SwiftwadBackendStack', {
+new SwiftwadBackendStack(app, `SwiftwadBackendStack-${EXEC_ENV}`, {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
