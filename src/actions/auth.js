@@ -151,6 +151,97 @@ export const getUser = async (event) => {
 
     const lambdaResponse = utilsLib.prepLambdaResponse(null, user);
 
+    return { lambdaResponse };
+  } catch (error) {
+    const message = utilsLib.parseErrorMessage(error);
+
+    const errorResponse = utilsLib.prepLambdaResponse(
+      { statusCode: 400, message },
+      null
+    );
+    return errorResponse;
+  }
+};
+
+export const changePassword = async (event) => {
+  const { oldPassword, newPassword } = JSON.parse(event.body);
+  const identity = utilsLib.extractTokenData(event)
+  const { auth_token } = identity;
+
+  try {
+    await userFunctions.changePassword({ oldPassword, newPassword, auth_token })
+
+    const lambdaResponse = utilsLib.prepLambdaResponse(null);
+
+    return { lambdaResponse };
+  } catch (error) {
+    const message = utilsLib.parseErrorMessage(error);
+
+    const errorResponse = utilsLib.prepLambdaResponse(
+      { statusCode: 400, message },
+      null
+    );
+    return errorResponse;
+  }
+};
+
+
+export const resetPassword = async (event) => {
+  const eventBody = JSON.parse(event.body);
+
+  try {
+    const { email: userEmail } = eventBody;
+
+    const email = userEmail.toLowerCase();
+
+    await userFunctions.resetPassword(email);
+
+    const lambdaResponse = utilsLib.prepLambdaResponse(null);
+
+    return lambdaResponse;
+  } catch (error) {
+    const message = utilsLib.parseErrorMessage(error);
+
+    const errorResponse = utilsLib.prepLambdaResponse(
+      { statusCode: 400, message },
+      null
+    );
+    return errorResponse;
+  }
+};
+
+export const completePasswordReset = async (event) => {
+  const eventBody = JSON.parse(event.body);
+
+  try {
+    const { email: userEmail, code, newPassword } = eventBody;
+
+    const email = userEmail.toLowerCase();
+
+    await userFunctions.completePasswordReset(email, code, newPassword);
+
+    const lambdaResponse = utilsLib.prepLambdaResponse(null);
+
+    return lambdaResponse;
+  } catch (error) {
+    const message = utilsLib.parseErrorMessage(error);
+
+    const errorResponse = utilsLib.prepLambdaResponse(
+      { statusCode: 400, message },
+      null
+    );
+    return errorResponse;
+  }
+};
+
+export const addToWaitlist = async (event) => {
+  try {
+    const { email } = eventBody;
+
+    await userFunctions.addToWaitlist(email);
+
+    const lambdaResponse = utilsLib.prepLambdaResponse(null);
+
     return lambdaResponse;
   } catch (error) {
     const message = utilsLib.parseErrorMessage(error);

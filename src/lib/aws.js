@@ -10,16 +10,20 @@ import {
   AdminGetUserCommand,
   AdminDeleteUserCommand,
   AdminCreateUserCommand,
-  SignUpCommand,
   AdminEnableUserCommand,
   AdminDisableUserCommand,
   AdminSetUserPasswordCommand,
+  SignUpCommand,
   ResendConfirmationCodeCommand,
   ConfirmSignUpCommand,
   VerifyUserAttributeCommand,
   GetUserAttributeVerificationCodeCommand,
   InitiateAuthCommand,
   AdminInitiateAuthCommand,
+  ChangePasswordCommand,
+  ForgotPasswordCommand,
+  ConfirmForgotPasswordCommand,
+  AdminConfirmSignUpCommand,
 } from '@aws-sdk/client-cognito-identity-provider';
 
 // Set the region
@@ -71,9 +75,15 @@ export const cognito = {
   adminInitiateAuthCommand: async (params) => {
     return await cognitoClient.send(new AdminInitiateAuthCommand(params));
   },
-  adminInitiateAuthCommand: async (params) => {
-    return await cognitoClient.send(new AdminInitiateAuthCommand(params));
+  changePassword: async (params) => {
+    return await cognitoClient.send(new ChangePasswordCommand(params));
   },
+  initiatePasswordReset: async (params) => {
+    return await cognitoClient.send(new ForgotPasswordCommand(params));
+  },
+  completePasswordReset: async (params) => {
+    return await cognitoClient.send(new ConfirmForgotPasswordCommand(params));
+  }
 };
 
 const ssmClient = new SSMClient(AWS_CONFIG);

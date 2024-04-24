@@ -51,3 +51,15 @@ export const authenticate = async (params) => {
 export const adminAuthenticate = async (params) => {
   return await cognito.initiateAuthCommand(params);
 }
+
+export const changePassword = async (params) => {
+  return await cognito.changePassword(params);
+}
+
+export const initiatePasswordReset = async (params) => {
+  return await cognito.initiatePasswordReset(params);
+}
+
+export const completePasswordReset = async (params) => {
+  return await cognito.completePasswordReset(params);
+}

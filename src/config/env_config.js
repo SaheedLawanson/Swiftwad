@@ -91,3 +91,20 @@ export const getUserTableConfig = () => {
 
   return dynamodb.swiftwad_users;
 };
+
+/**
+ * Get waitlist table config
+ *
+ * @returns {object} Object containing waitlist table configuration
+ */
+export const getWaitlistTableConfig = () => {
+  const { dynamodb } = getParameters();
+  let dbConfig = typeof dynamodb === "string" ? JSON.parse(dynamodb) : dynamodb;
+  dbConfig =
+    typeof dbConfig === "string"
+      ? JSON.parse(dbConfig)
+      : dbConfig;
+
+  return dynamodb.swiftwad_waitlist;
+};
+

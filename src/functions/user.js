@@ -177,3 +177,72 @@ export const getUser = async (user_id) => {
   return dbResponse.Item;
 };
 
+/**
+ * Allows a user to change their password using their old password.
+ * 
+ * @param {string} username - The username (email) of the user.
+ * @param {string} oldPassword - The user's old password.
+ * @param {string} newPassword - The new password to set.
+ * @returns {Promise<void>}
+ */
+export const changePassword = async ({ oldPassword, newPassword, auth_token }) => {
+  await cognitoLib.changePassword({
+    PreviousPassword: oldPassword,
+    ProposedPassword: newPassword,
+    AccessToken: auth_token
+  });
+};
+
+/**
+ * Sends a reset password link to the user's email.
+ * 
+ * @param {string} username - The username (email) of the user.
+ * @returns {Promise<void>}
+ */
+export const resetPassword = async (username) => {
+  const cognitoConfig = envConfig.getCognitoConfig();
+
+  await cognitoLib.initiatePasswordReset({
+    ClientId: cognitoConfig.userPoolClientId,
+    Username: username,
+  });
+};
+
+/**
+ * Resets the user's password using the reset code sent to their email.
+ * 
+ * @param {string} username - The username (email) of the user.
+ * @param {string} code - The reset code sent to the user's email.
+ * @param {string} newPassword - The new password to set.
+ * @returns {Promise<void>}
+ */
+export const completePasswordReset = async (username, code, newPassword) => {
+  const cognitoConfig = envConfig.getCognitoConfig();
+
+  await cognitoLib.completePasswordReset({
+    ClientId: cognitoConfig.userPoolClientId,
+    Username: username,
+    ConfirmationCode: code,
+    Password: newPassword,
+  });
+};
+
+/**
+ * Adds a user's details to a waitlist table.
+ * 
+ * @param {string} username - The username (email) of the user.
+ * @param {string} fullName - The full name of the user.
+ * @param {string} email - The email of the user.
+ * @param {string} phoneNumber - The phone number of the user.
+ * @returns {Promise<void>}
+ */
+export const addToWaitlist = async (email) => {
+  const { table_name } = envConfig.getWaitlistTableConfig();
+  const join = await dbLib.putToDb({
+    TableName: table_name,
+    Item: {
+      email
+    },
+  });
+  return join
+};
