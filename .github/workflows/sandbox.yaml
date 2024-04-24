@@ -1,10 +1,14 @@
 name: Deploy SwiftwadBackendStack
 
 on:
-  push:
-    branches:
-      - dev
+    pull_request:
+        types:
+            - opened
+            - reopened
+        branches:
+            - dev
 
+    
 jobs:
   deploy_lambda_stack:
     runs-on: ubuntu-latest
@@ -15,8 +19,8 @@ jobs:
         -   name: Setup ENV
             run: |
                 echo "AWS_REGION=eu-west-2" >> $GITHUB_ENV
-                echo "AWS_ACCOUNT_ID=905418331655" >> $GITHUB_ENV
-                echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
+                echo "AWS_ACCOUNT_ID=630589988206" >> $GITHUB_ENV
+                echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
                 
                 if [[ "${{ github.ref_name }}" == "main" ]]; then
                     env="prod"
