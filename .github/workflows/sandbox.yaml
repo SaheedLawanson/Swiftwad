@@ -2,13 +2,8 @@ name: Deploy SwiftwadBackendStack
 
 on:
     pull_request:
-        types:
-            - opened
-            - edited
-            - reopened
         branches:
             - dev
-
     
 jobs:
   deploy_lambda_stack:

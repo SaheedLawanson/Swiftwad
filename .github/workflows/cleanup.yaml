@@ -1,9 +1,11 @@
 name: Deploy SwiftwadBackendStack
 
 on:
-    push:
+    pull_request:
+        types:
+            - closed
         branches:
-        - dev
+            - dev
     
 jobs:
   deploy_lambda_stack:
@@ -16,7 +18,7 @@ jobs:
             run: |
                 echo "AWS_REGION=eu-west-2" >> $GITHUB_ENV
                 echo "AWS_ACCOUNT_ID=630589988206" >> $GITHUB_ENV
-                echo "BRANCH_NAME=dev >> $GITHUB_ENV
+                echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
                 echo "EXEC_ENV=dev" >> $GITHUB_ENV
 
         -   name: Configure AWS credentials
@@ -37,9 +39,10 @@ jobs:
                 npm install
                 npx cdk bootstrap aws://${{ env.AWS_ACCOUNT_ID }}/${{ env.AWS_REGION}}
 
-        -   name: Deploy SwiftwadBackendStack (via CDK)
+        -   name: Destroy Stack
             uses: youyo/aws-cdk-github-actions@v2
             with:
-                cdk_subcommand: 'deploy'
+                cdk_subcommand: 'destroy'
+                cdk_stack: 'SwiftwadBackendStack-${{ github.head_ref }}'
                 cdk_args: '--require-approval never'
                 actions_comment: false
